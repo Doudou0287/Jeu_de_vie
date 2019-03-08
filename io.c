@@ -40,12 +40,17 @@ void efface_grille(const grille *g) { printf("\n\e[%dA", g->nbl * 2 + 5); }
 int (*compte_voisins_vivants) (int,int,grille)=compte_voisins_vivants_c;
 void debut_jeu(grille *g, grille *gc) {
   int c = getchar();
+   int t=0;
   while (c != 'q') { // touche 'q' pour quitter
     switch (c) {
     case '\n': { // touche "entree" pour évoluer
       evolue(g, gc);
       efface_grille(g);
       affiche_grille(g);
+      t++;
+      printf("\e[2K");
+      printf("%d\t",t);
+
       break;
     }
     case 'n' :
@@ -55,6 +60,7 @@ void debut_jeu(grille *g, grille *gc) {
 	scanf("%s",nom);
 	init_grille_from_file(nom,g);
 	alloue_grille((g->nbl),(g->nbc),gc);
+	t=0;
 	break;
 	} 
     case 'c' :
