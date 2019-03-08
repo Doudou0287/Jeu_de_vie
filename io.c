@@ -32,6 +32,12 @@ void affiche_grille(const grille *g) {
 
 void efface_grille(const grille *g) { printf("\n\e[%dA", g->nbl * 2 + 5); }
 
+
+
+
+
+
+
 void debut_jeu(grille *g, grille *gc) {
   int c = getchar();
   while (c != 'q') { // touche 'q' pour quitter
@@ -42,6 +48,16 @@ void debut_jeu(grille *g, grille *gc) {
       affiche_grille(g);
       break;
     }
+    case 'n' :
+    {
+	char nom[50];
+	printf("entrez le nom de grille\n");
+	scanf("%s",nom);
+	init_grille_from_file(nom,g);
+	alloue_grille((g->nbl),(g->nbc),gc);
+	break;
+	} 
+
     default: { // touche non traitée
       printf("\n\e[1A");
       break;
