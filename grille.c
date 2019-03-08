@@ -19,10 +19,11 @@ void alloue_grille(int l, int c, grille *g) {
 	for(int i=0; i<l; i++ )
 	{
 		g->cellules[i]=malloc(c*sizeof(int));
-		if (g->cellules[i]=NULL)
+		if (g->cellules[i]==NULL)
 			exit(0);
 		for(int j=0; j<c; j++)
-			set_morte(i,j,*g)
+			set_morte(i,j,*g);	
+	}
 	
 
  }
