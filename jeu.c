@@ -1,3 +1,13 @@
+/**
+ * \file jeu.c
+ * \brief code pour le jeu
+ * \author sundus ALKEBSI
+ */
+
+
+
+
+
 #include "jeu.h"
 
 int compte_voisins_vivants_c(int i, int j, grille g) {

@@ -1,3 +1,11 @@
+/**
+ * \file io.c
+ * \brief code pour l'affichage
+ * \author sundus ALKEBSI
+ */
+
+
+
 #include "io.h"
 
 static void affiche_trait(int c) {

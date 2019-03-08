@@ -1,3 +1,10 @@
+/** 
+* \file grille.c
+* \brief  code pour les grilles  
+* \author sundus alkebsi
+*/ 
+
+
 #include <assert.h>
 #include <errno.h>
 #include <stdio.h>
@@ -71,6 +78,15 @@ void copie_grille(const grille *const gs, grille *const gd) {
 }
 
 extern inline bool est_vivante(int i, int j, grille g);
+
+
+
+
+
+
+
+
+
 extern inline void set_vivante(int i, int j, grille g);
 extern inline void set_morte(int i, int j, grille g);
 

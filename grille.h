@@ -1,3 +1,11 @@
+/** 
+* \file grille.h
+* \brief  fonctions pour les grilles  
+* \author sundus alkebsi
+*/ 
+
+
+
 #ifndef __GRILLE_H
 #define __GRILLE_H
 

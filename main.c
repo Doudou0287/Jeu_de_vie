@@ -1,3 +1,9 @@
+/** 
+* \file main.c
+* \brief le main programme 
+* \author sundus alkebsi
+*/ 
+
 #include <stdio.h>
 #include <stdlib.h>
 
