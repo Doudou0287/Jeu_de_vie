@@ -2,14 +2,14 @@
 
 int compte_voisins_vivants(int i, int j, grille g) {
   int v = 0, l=g.nbl, c=g.nbc;
-	v+= estvivant(modulo(i-1,l),modulo(j-1,c),g)
-	v+= estvivant(modulo(i-1,l),modulo(j,c),g)
-	v+= estvivant(modulo(i-1,l),modulo(j+1,c),g)
-	v+= estvivant(modulo(i,l),modulo(j-1,c),g)
-	v+= estvivant(modulo(i,l),modulo(j+1,c),g)
-	v+= estvivant(modulo(i+1,l),modulo(j-1,c),g)
-	v+= estvivant(modulo(i+1,l),modulo(j,c),g)
-	v+= estvivant(modulo(i+1,l),modulo(j+1,c),g)
+	v+= est_vivante(modulo(i-1,l),modulo(j-1,c),g);
+	v+= est_vivante(modulo(i-1,l),modulo(j,c),g);
+	v+= est_vivante(modulo(i-1,l),modulo(j+1,c),g);
+	v+= est_vivante(modulo(i,l),modulo(j-1,c),g);
+	v+= est_vivante(modulo(i,l),modulo(j+1,c),g);
+	v+= est_vivante(modulo(i+1,l),modulo(j-1,c),g);
+	v+= est_vivante(modulo(i+1,l),modulo(j,c),g);
+	v+= est_vivante(modulo(i+1,l),modulo(j+1,c),g);
   return v;
 }
 
