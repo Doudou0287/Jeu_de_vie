@@ -15,7 +15,7 @@ jeu.o: jeu.c jeu.h
 
 
 %.o: %.c
-	@$(CC) -o $@ -c $(CFLAGS)
+	@$(CC) -o $@ -c $< $(CFLAGS)
 
 dist: 
 	tar -cvJ -f archiv.tar.xz makefile Doxyfile
