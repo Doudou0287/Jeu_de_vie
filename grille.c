@@ -6,7 +6,26 @@
 
 #include "grille.h"
 
-void alloue_grille(int l, int c, grille *g) { g->cellules = NULL; }
+void alloue_grille(int l, int c, grille *g) { 
+
+	g->nbl=l;
+	g->nbc=c;
+	g->cellules=malloc(l*sizeof(int*));
+	if(g->cellules==NULL)
+	{
+		exit(0);
+	}
+
+	for(int i=0; i<l; i++ )
+	{
+		g->cellules[i]=malloc(c*sizeof(int));
+		if (g->cellules[i]=NULL)
+			exit(0);
+		for(int j=0; j<c; j++)
+			set_morte(i,j,*g)
+	
+
+ }
 
 void libere_grille(grille *g) { g->cellules = NULL; }
 
