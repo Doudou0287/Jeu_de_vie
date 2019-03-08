@@ -37,7 +37,7 @@ void efface_grille(const grille *g) { printf("\n\e[%dA", g->nbl * 2 + 5); }
 
 
 
-
+int (*compte_voisins_vivants) (int,int,grille)=compte_voisins_vivants_c;
 void debut_jeu(grille *g, grille *gc) {
   int c = getchar();
   while (c != 'q') { // touche 'q' pour quitter
@@ -57,6 +57,17 @@ void debut_jeu(grille *g, grille *gc) {
 	alloue_grille((g->nbl),(g->nbc),gc);
 	break;
 	} 
+    case 'c' :
+	{
+	if(compte_voisins_vivants==compte_voisins_vivants_c){
+			compte_voisins_vivants=compte_voisins_v_n_c;
+	}
+	else {
+		compte_voisins_vivants=compte_voisins_vivants_c;
+	  }
+	
+	break;
+	}
 
     default: { // touche non traitée
       printf("\n\e[1A");
