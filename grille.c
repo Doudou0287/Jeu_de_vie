@@ -27,7 +27,13 @@ void alloue_grille(int l, int c, grille *g) {
 
  }
 
-void libere_grille(grille *g) { g->cellules = NULL; }
+void libere_grille(grille *g) {
+
+	for(int i=0; i<g->nbl;i++){
+	free(g->cellules[i]);
+	}
+	free(g->cellules);
+}
 
 void init_grille_from_file(char const *const filename, grille *const g) {
   FILE *pfile = fopen(filename, "r");
