@@ -14,7 +14,7 @@
 #include "grille.h"
 
 void alloue_grille(int l, int c, grille *g) { 
-
+	int i,j;
 	g->nbl=l;
 	g->nbc=c;
 	g->cellules=malloc(l*sizeof(int*));
@@ -23,12 +23,12 @@ void alloue_grille(int l, int c, grille *g) {
 		exit(0);
 	}
 
-	for(int i=0; i<l; i++ )
+	for( i=0; i<l; i++ )
 	{
 		g->cellules[i]=malloc(c*sizeof(int));
 		if (g->cellules[i]==NULL)
 			exit(0);
-		for(int j=0; j<c; j++)
+		for( j=0; j<c; j++)
 			set_morte(i,j,*g);	
 	}
 	
@@ -36,8 +36,8 @@ void alloue_grille(int l, int c, grille *g) {
  }
 
 void libere_grille(grille *g) {
-
-	for(int i=0; i<g->nbl;i++){
+	int i;
+	for( i=0; i<g->nbl;i++){
 	free(g->cellules[i]);
 	}
 	free(g->cellules);
@@ -57,10 +57,10 @@ void init_grille_from_file(char const *const filename, grille *const g) {
   fscanf(pfile, "%d", &c);
 
   alloue_grille(l, c, g);
-
+	int n;
   int vivantes = 0;
   fscanf(pfile, "%d", &vivantes);
-  for (int n = 0; n < vivantes; ++n) {
+  for ( n = 0; n < vivantes; ++n) {
     fscanf(pfile, "%d", &l);
     fscanf(pfile, "%d", &c);
     set_vivante(l, c, *g);
@@ -71,22 +71,14 @@ void init_grille_from_file(char const *const filename, grille *const g) {
 }
 
 void copie_grille(const grille *const gs, grille *const gd) {
+	int i,j;
   assert(gs->nbl == gd->nbl && gs->nbc == gd->nbc);
-  for (int i = 0; i < gs->nbl; ++i)
-    for (int j = 0; j < gs->nbc; ++j)
+  for (i = 0; i < gs->nbl; ++i)
+    for ( j = 0; j < gs->nbc; ++j)
       gd->cellules[i][j] = gs->cellules[i][j];
 }
 
-extern inline bool est_vivante(int i, int j, grille g);
 
 
 
-
-
-
-
-
-
-extern inline void set_vivante(int i, int j, grille g);
-extern inline void set_morte(int i, int j, grille g);
 

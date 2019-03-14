@@ -56,7 +56,7 @@ void init_grille_from_file(char const*const filename, grille* g);
  * \param g une grille
  * \return \c void
 */
-inline void set_vivante(int i, int j, grille g) {
+static inline void set_vivante(int i, int j, grille g) {
   g.cellules[i][j] = 1;
 }
 
@@ -67,8 +67,8 @@ inline void set_vivante(int i, int j, grille g) {
  * \param j
  * \param g une grille
  * \return \c void
-*/ 
-inline void set_morte(int i, int j, grille g) {
+*/
+static inline void set_morte(int i, int j, grille g) {
   g.cellules[i][j] = 0;
 }
 
@@ -81,7 +81,7 @@ inline void set_morte(int i, int j, grille g) {
  * \return \c void
 */ 
 
-inline bool est_vivante(int i, int j, grille g) {
+static inline bool est_vivante(int i, int j, grille g) {
   return g.cellules[i][j] == 1;
 }
 
@@ -93,6 +93,14 @@ inline bool est_vivante(int i, int j, grille g) {
  * \return \c void
 */
 void copie_grille(const grille *gs, grille *gd);
+
+
+
+static inline void vieills(int i, int j , grille g, int vieil){
+	if(vieil==1) g.cellules[i][j]++;
+	if(g.cellules[i][j]==9) g.cellules[i][j]=0;
+} 
+
 
 #endif // __GRILLE_H
 
