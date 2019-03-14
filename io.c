@@ -17,7 +17,8 @@ static void affiche_trait(int c) {
 }
 
 static void affiche_ligne(int ligne, const grille *g) {
-  for (int i = 0; i < g->nbc; ++i) {
+	int i; 
+ for ( i = 0; i < g->nbc; ++i) {
     if (est_vivante(ligne, i, *g))
       printf("| O ");
     else
@@ -28,9 +29,10 @@ static void affiche_ligne(int ligne, const grille *g) {
 }
 
 void affiche_grille(const grille *g) {
-  printf("\n");
+	int i; 
+ printf("\n");
   affiche_trait(g->nbc);
-  for (int i = 0; i < g->nbl; ++i) {
+  for ( i = 0; i < g->nbl; ++i) {
     affiche_ligne(i, g);
     affiche_trait(g->nbc);
   }
