@@ -3,12 +3,12 @@ CFLAGS=-g -Wall
 EXEC=main
 SRC=$(wildcard *.c)
 OBJ=$(SRC:.c=.o)
-WARNFLAGS := -Wall -Wpedantic -Wextra -Waddress -Waggressive-loop-optimizations \
-  -Wcast-qual -Wcast-align -Wmissing-declarations \
-  -Wdouble-promotion -Wuninitialized -Winit-self \
-  -Wstrict-aliasing -Wsuggest-attribute=const -Wtrampolines -Wfloat-equal \
-  -Wshadow -Wunsafe-loop-optimizations -Wlogical-op \
-  -Wdisabled-optimization -Wconversion -Wunused-result
+#WARNFLAGS := -Wall -Wpedantic -Wextra -Waddress -Waggressive-loop-optimizations \
+#  -Wcast-qual -Wcast-align -Wmissing-declarations \
+#  -Wdouble-promotion -Wuninitialized -Winit-self \
+#  -Wstrict-aliasing -Wsuggest-attribute=const -Wtrampolines -Wfloat-equal \
+#  -Wshadow -Wunsafe-loop-optimizations -Wlogical-op \
+#  -Wdisabled-optimization -Wconversion -Wunused-result
 
 #all:lavie
 #lavie:
@@ -31,7 +31,8 @@ jeu.o: jeu.c jeu.h
 
 
 %.o: %.c
-	@$(CC) -o $@ -c $< $(CFLAGS)
+	@$(CC) $(WARNFLAGS) -o $@ -c $< $(CFLAGS)
+
 
 dist: 
 	tar -cvJ -f alkebsi_sundus_Gol_version1.tar.xz makefile Doxyfile
