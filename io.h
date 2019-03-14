@@ -15,7 +15,7 @@
 #include <stdio.h>
 #include "grille.h"
 #include "jeu.h"
-
+#include "io.h"
 /**
 * \breif affichage d'une grille
 * \param int c un entier
