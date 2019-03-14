@@ -52,14 +52,16 @@ int compte_voisins_v_n_c(int i,int j, grille g){
 
 
 
-void evolue(grille *g, grille *gc) {
+void evolue(grille *g, grille *gc,int vieil) {
   copie_grille(g, gc); // copie temporaire de la grille
 	int v;
+	
   for (int i = 0; i < g->nbl; i++) {
     for (int j = 0; j < g->nbc; ++j) {
 		v=compte_voisins_vivants (i,j,*gc);
 		if(est_vivante(i,j,*g)){
 			if(v!=2 && v!=3) set_morte(i,j,*g);
+			else vieills(i,j,*g,vieil);
 	 	 }
 		else{
 			if(v==3) set_vivante(i,j,*g);

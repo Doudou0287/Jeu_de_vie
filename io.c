@@ -49,10 +49,11 @@ int (*compte_voisins_vivants) (int,int,grille)=compte_voisins_vivants_c;
 void debut_jeu(grille *g, grille *gc) {
   int c = getchar();
    int t=0;
+	int vieil=0;
   while (c != 'q') { // touche 'q' pour quitter
     switch (c) {
     case '\n': { // touche "entree" pour évoluer
-      evolue(g, gc);
+      evolue(g, gc,vieil);
       efface_grille(g);
       affiche_grille(g);
       t++;
@@ -82,7 +83,15 @@ void debut_jeu(grille *g, grille *gc) {
 	
 	break;
 	}
-
+     case 'v' :
+      {
+	if(vieil==0)
+	{
+		vieil=1;
+	}
+	else 
+		vieil=0;
+     }
     default: { // touche non traitée
       printf("\n\e[1A");
       break;

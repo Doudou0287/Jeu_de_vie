@@ -51,7 +51,7 @@ int compte_voisins_v_n_c(int i,int j, grille g);
  * \param *g une grille
  * \return \c void
 */
-void evolue (grille *g, grille *gc);
+void evolue (grille *g, grille *gc,int vieil);
 
 
 /**
