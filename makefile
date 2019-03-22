@@ -3,6 +3,7 @@ CFLAGS=-g -Wall
 EXEC=main
 SRC=$(wildcard *.c)
 OBJ=$(SRC:.c=.o)
+DOXGEN=doxygen 
 #WARNFLAGS := -Wall -Wpedantic -Wextra -Waddress -Waggressive-loop-optimizations \
 #  -Wcast-qual -Wcast-align -Wmissing-declarations \
 #  -Wdouble-promotion -Wuninitialized -Winit-self \
@@ -40,7 +41,7 @@ dist:
 .PHONY: clean mrproper
 
 doc:
-	doxygen Doxyfile
+	$(DOXGEN)
 clean:
 	@rm -rf *.o main core
 
