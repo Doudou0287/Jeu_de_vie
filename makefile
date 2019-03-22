@@ -1,9 +1,14 @@
 CC=gcc
 CFLAGS=-g -Wall 
-EXEC=main
-SRC=$(wildcard *.c)
-OBJ=$(SRC:.c=.o)
+IFLAGS=-Iinclude
+CPATH= src/
+OPATH=obj/
 DOXGEN=doxygen 
+vpath main bin
+vpath %.h include
+vpath %.o obj
+vpath %.c src
+
 #WARNFLAGS := -Wall -Wpedantic -Wextra -Waddress -Waggressive-loop-optimizations \
 #  -Wcast-qual -Wcast-align -Wmissing-declarations \
 #  -Wdouble-promotion -Wuninitialized -Winit-self \
@@ -18,9 +23,11 @@ DOXGEN=doxygen
 #	@$(RM) -f lavie *.o
 #	@echo Clean!
 
-all:$(EXEC)
-main:$(OBJ)
-	@$(CC) -o $@ $^ 
+
+main: main.o grille.o jeu.o io.o
+	$(CC) $(CFLAGS) -o $@ $(OPATH)main.o $(OPATH)jeu.o $(OPATH)grille.o $(OPATH)io.o
+	mkdir -p bin
+	mv main bin/
 
 check: lavie
 	@./test/test_gol_execution.sh
@@ -31,9 +38,10 @@ io.o: io.c io.h
 jeu.o: jeu.c jeu.h
 
 
-%.o: %.c
-	@$(CC) $(WARNFLAGS) -o $@ -c $< $(CFLAGS)
-
+%.o:
+	mkdir -p $(OPATH)
+	@$(CC) $(CFLAGS) -c $< $(IFLAGS)
+	mv $@ $(OPATH)
 
 dist: 
 	tar -cvJ -f alkebsi_sundus_Gol_version1.tar.xz makefile Doxyfile
