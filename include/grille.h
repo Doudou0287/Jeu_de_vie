@@ -101,6 +101,32 @@ static inline void vieills(int i, int j , grille g, int vieil){
 	if(g.cellules[i][j]==9) g.cellules[i][j]=0;
 } 
 
+/**
+ * \rend la celulles[i][j] -1 de la grille g
+ * \param i entier
+ * \param j entier
+ *\return \c void  
+*/
+static inline void set_non_viable(int i,int j,grille g)
+{
+	g.cellules[i][j]=-1;
+}
+
+
+/**
+ * \tester si la celulles[i][j] est non viable de la grille g
+ * \param g une grille
+ * \param i entier
+ * \param j entier
+ *\return int 1 si elle est non_viable, 0 sinon  
+*/
+static inline int est_non_viable(int i,int j,grille g){
+	if(g.cellules[i][j]==-1)
+		return 1;
+	else return 0;
+}
+
+
 
 #endif // __GRILLE_H
 

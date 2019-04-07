@@ -20,7 +20,7 @@ static void affiche_ligne(int ligne, const grille *g) {
 	int i; 
  for ( i = 0; i < g->nbc; ++i) {
     if (est_vivante(ligne, i, *g))
-      printf("| O ");
+      printf("| 0 ");
     else
       printf("|   ");
   }

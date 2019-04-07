@@ -63,12 +63,14 @@ void evolue(grille *g, grille *gc,int vieil) {
 			if(v!=2 && v!=3) set_morte(i,j,*g);
 			else vieills(i,j,*g,vieil);
 	 	 }
-		else{
+		else if(est_non_viable(i,j,*g)==0)
+		{
 			if(v==3) set_vivante(i,j,*g);
 		 }
 		
      
     }
   }
+  return;
 }
 
