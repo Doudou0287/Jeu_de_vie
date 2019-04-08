@@ -8,11 +8,11 @@ void paint(cairo_surface_t *surface, grille g){
 	// background
 	cairo_set_source_rgb (cr, 0.5, 0.5, 0.5);
 	cairo_paint(cr);
-
+	int i,j;
 	// filled rectangle
-	for(int i=0; i<g.nbl; i++)
+	for( i=0; i<g.nbl; i++)
 	{
-		for(int j=0; j<g.nbc; j++)
+		for(j=0; j<g.nbc; j++)
 		{	
 			cairo_rectangle(cr,j*52+30,i*52+30,50,50);
 			if (g.cellules[i][j] == -1)

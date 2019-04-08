@@ -8,6 +8,9 @@ vpath main bin
 vpath %.h include
 vpath %.o obj
 vpath %.c src
+CPPFLAGS += -Iinclude -I/usr/include/cairo
+LDFLAGS += -lcairo -lm -lX11
+
 
 #WARNFLAGS := -Wall -Wpedantic -Wextra -Waddress -Waggressive-loop-optimizations \
 #  -Wcast-qual -Wcast-align -Wmissing-declarations \
@@ -24,8 +27,8 @@ vpath %.c src
 #	@echo Clean!
 
 
-main: main.o grille.o jeu.o io.o
-	$(CC) $(CFLAGS) -o $@ $(OPATH)main.o $(OPATH)jeu.o $(OPATH)grille.o $(OPATH)io.o
+main: main.o grille.o jeu.o cairo.o
+	$(CC) $(CFLAGS) -o $@ $(OPATH)main.o $(OPATH)jeu.o $(OPATH)grille.o $(OPATH)cairo.o $(LDFLAGS)
 	mkdir -p bin
 	mv main bin/
 
@@ -34,13 +37,13 @@ check: lavie
 
 main.o: main.c grille.h io.h jeu.h
 grille.o: grille.c grille.h
-io.o: io.c io.h
+cairo.o: cairo.c io.h
 jeu.o: jeu.c jeu.h
 
 
 %.o:
 	mkdir -p $(OPATH)
-	@$(CC) $(CFLAGS) -c $< $(IFLAGS)
+	@$(CC) $(CFLAGS) -c $< $(IFLAGS) $(CPPFLAGS)
 	mv $@ $(OPATH)
 
 dist: 
