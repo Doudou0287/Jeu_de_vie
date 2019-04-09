@@ -54,9 +54,6 @@ dist:
 doc:
 	$(DOXGEN)
 clean:
-	@rm -rf *.o main core
-
-mrproper: clean
-	@rm -rf $(EXEC)
+	@rm -rf obj/* bin/* 
         
 

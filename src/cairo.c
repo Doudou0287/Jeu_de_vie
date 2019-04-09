@@ -42,6 +42,8 @@ void paint(cairo_surface_t *surface, grille g){
 }
 
 
+int v=0;
+
 int graphique(grille *g, grille *gc)
 {
 //1	// X11 display
@@ -76,14 +78,20 @@ int graphique(grille *g, grille *gc)
 	// run the event loop
 	while(1) {
 		XNextEvent(dpy, &e);
-		if(e.type==Expose && e.xexpose.count<1) {
+		if(e.type==Expose && e.xexpose.count<1) 
 			paint(cs,*g);
-		} else if(e.type==ButtonPress) break;
+	
+		if(e.xbutton.button==1)
+		{
+			evolue(g,gc,v);
+			paint(cs,*g);
+		}
+		else if(e.xbutton.button==3) break;
 	}
 
 
 
-cairo_surface_destroy(cs); // destroy cairo surface
+	cairo_surface_destroy(cs); // destroy cairo surface
 	XCloseDisplay(dpy); // close the display
 	return 0;
 }
