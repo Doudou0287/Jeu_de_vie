@@ -1,8 +1,18 @@
 #include "io.h"
 
 int v=0;
+int temps=0;
 int (*compte_voisins_vivants) (int,int,grille)=compte_voisins_vivants_c;
-void paint(cairo_surface_t *surface, grille g){
+void paint(cairo_surface_t *surface, grille g,int v){
+
+	int CSIZE = 52 ;
+	char temp[100];
+	sprintf(temp,"%d",temps);
+	
+	
+	char age[2];
+	age[1]= '\n'; 
+
 	// create cairo mask
 	cairo_t *cr;
 	cr=cairo_create(surface);
@@ -32,13 +42,50 @@ void paint(cairo_surface_t *surface, grille g){
 				cairo_set_source_rgb (cr, 0.0, 0.0, 1.0);
 				cairo_fill(cr);
 				
+				if(v==1){
+				sprintf(age,"%d",g.cellules[i][j]-1);
 				cairo_select_font_face(cr,"serif",CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_BOLD);
 				cairo_set_font_size(cr,0.5*52);
+				cairo_set_font_size(cr,0.5*CSIZE);
 				cairo_set_source_rgb(cr,1.0,0.0,0.0);
-				cairo_move_to(cr,j*52+49,i*52+62);				
+				cairo_move_to(cr,j*52+49,i*52+62);	
+				cairo_show_text(cr,age);
+				}
+			
 			}
 		}
 	}
+	cairo_select_font_face(cr,"serif",CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_BOLD);
+	cairo_set_font_size(cr,0.5*CSIZE);
+	cairo_set_source_rgb(cr,1.0,1.0,1.0);
+
+	//le temps
+	cairo_move_to(cr,30,(g.nbl+1)*52);
+	cairo_show_text(cr,"temps passe : ");
+	cairo_show_text(cr,temp);
+	
+	//le vieillissement
+	cairo_move_to(cr,30,(g.nbl+2)*52);
+	if(v==0)
+	{	
+		cairo_show_text(cr,"désactiver le vieillissement");
+	}
+	else
+	{
+		cairo_show_text(cr,"activer le vieillissement");
+	}
+	
+	//cyclique
+	cairo_select_font_face(cr,"serif",CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_BOLD);
+	cairo_set_font_size(cr,0.5*CSIZE);
+	cairo_set_source_rgb(cr,1.0,1.0,1.0);
+	cairo_move_to(cr,30,(g.nbl+3)*52);
+	
+	if(compte_voisins_vivants==compte_voisins_vivants_c)
+		cairo_show_text(cr," i cyclique");
+	else 
+		cairo_show_text(cr," i non cyclique");
+
 
 	cairo_destroy(cr); // destroy cairo mask
 }
@@ -67,7 +114,7 @@ int graphique(grille *g, grille *gc)
 	win=XCreateSimpleWindow(dpy, rootwin, 1, 1, SIZEX, SIZEY, 0, BlackPixel(dpy, scr), BlackPixel(dpy, scr));
 
 	XStoreName(dpy, win, "jeu de la vie");
-	XSelectInput(dpy, win, ExposureMask|ButtonPressMask);
+	XSelectInput(dpy, win, ExposureMask|ButtonPressMask|KeyPressMask);
 	XMapWindow(dpy, win);
 
 
@@ -80,18 +127,34 @@ int graphique(grille *g, grille *gc)
 	while(1) {
 		XNextEvent(dpy, &e);
 		if(e.type==Expose && e.xexpose.count<1) {
-			paint(cs,*g);
+			paint(cs,*g,v);
 		}
 		if(e.xbutton.button == 1)
 		{
 			evolue(g,gc,v);
-			paint(cs,*g);
+			temps++;
+			paint(cs,*g,v);
 		}
+		if (e.xkey.keycode==57) { 
+		// touche "n" charger une nouvelle grille
+			libere_grille(g);
+			libere_grille(gc);
+			printf("Entrez le nom de la nouvelle grille à charger: ");
+			temps=0;
+			char nom[128];
+			scanf("%s",nom);
+			init_grille_from_file(nom, g);
+			alloue_grille ((g->nbl),(g->nbc),gc);
+			
+			paint(cs,*g,v);
+	      	}	
+
+
 		if(e.xkey.keycode == 55)
 		//la touche v vieillissement
 		{
 			v= 1 - v;	
-			paint(cs,*g);
+			paint(cs,*g,v);
 
 		}
 		if(e.xkey.keycode == 54)//c
@@ -99,12 +162,12 @@ int graphique(grille *g, grille *gc)
 			if(compte_voisins_vivants==compte_voisins_vivants_c)
 			{
 					compte_voisins_vivants=compte_voisins_v_n_c;
-					paint(cs,*g);
+					paint(cs,*g,v);
 			}				
 			else
 			{
 					compte_voisins_vivants=compte_voisins_vivants_c;
-					paint(cs,*g);
+					paint(cs,*g,v);
 			}		
 		}
 
