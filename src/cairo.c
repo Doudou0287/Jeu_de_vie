@@ -1,5 +1,7 @@
 #include "io.h"
 
+int v=0;
+int (*compte_voisins_vivants) (int,int,grille)=compte_voisins_vivants_c;
 void paint(cairo_surface_t *surface, grille g){
 	// create cairo mask
 	cairo_t *cr;
@@ -42,7 +44,6 @@ void paint(cairo_surface_t *surface, grille g){
 }
 
 
-int v=0;
 
 int graphique(grille *g, grille *gc)
 {
@@ -52,7 +53,7 @@ int graphique(grille *g, grille *gc)
 	Window win;
 	XEvent e;
 	int scr;
-
+        int v=0;
 //2	// init the display
 	if(!(dpy=XOpenDisplay(NULL)))
 	{
@@ -78,14 +79,36 @@ int graphique(grille *g, grille *gc)
 	// run the event loop
 	while(1) {
 		XNextEvent(dpy, &e);
-		if(e.type==Expose && e.xexpose.count<1) 
+		if(e.type==Expose && e.xexpose.count<1) {
 			paint(cs,*g);
-	
-		if(e.xbutton.button==1)
+		}
+		if(e.xbutton.button == 1)
 		{
 			evolue(g,gc,v);
 			paint(cs,*g);
 		}
+		if(e.xkey.keycode == 55)
+		//la touche v vieillissement
+		{
+			v= 1 - v;	
+			paint(cs,*g);
+
+		}
+		if(e.xkey.keycode == 54)//c
+		{
+			if(compte_voisins_vivants==compte_voisins_vivants_c)
+			{
+					compte_voisins_vivants=compte_voisins_v_n_c;
+					paint(cs,*g);
+			}				
+			else
+			{
+					compte_voisins_vivants=compte_voisins_vivants_c;
+					paint(cs,*g);
+			}		
+		}
+
+
 		else if(e.xbutton.button==3) break;
 	}
 
