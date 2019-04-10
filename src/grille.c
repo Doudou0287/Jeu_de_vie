@@ -81,4 +81,23 @@ void copie_grille(const grille *const gs, grille *const gd) {
 
 
 
+int testEqalite(grille g, grille gc1)
+{
+	int result = 1,i,j;
+	if(g.nbc != gc1.nbc || g.nbl != gc1.nbl)
+	{
+		result = 0;
+	}
+	for( i = 0; i<g.nbc && result==1; i++)
+	{
+		for( j = 0; j<g.nbl && result==1; j++)
+		{
+			if(g.cellules[j][i] != gc1.cellules[j][i])
+			{
+				result = 0;
+			}
+		}
+	}
+	return result;
+}
 

@@ -126,6 +126,7 @@ static inline int est_non_viable(int i,int j,grille g){
 	else return 0;
 }
 
+int testEqalite(grille g, grille gc1);
 
 
 #endif // __GRILLE_H

@@ -74,3 +74,32 @@ void evolue(grille *g, grille *gc,int vieil) {
   return;
 }
 
+
+int testOscillant(grille g, int v)
+{
+	int m = 0;
+	int result=0;	
+	grille gc1, gc2;
+	alloue_grille(g.nbl,g.nbc,&gc1);
+	alloue_grille(g.nbl,g.nbc,&gc2);
+	copie_grille(g,gc1);
+	copie_grille(g,gc2);
+	evolue(&gc1,&gc2,v);
+	while(testEqalite(g,gc1)==0 && m<100)
+	{
+		evolue(&gc1,&gc2,v);
+		m++;
+	}
+	if(m==100 || m==0)
+	{
+		result = 0;
+	}
+	else
+	{
+		result = 1;
+	}
+	libere_grille(&gc1);
+	libere_grille(&gc2);
+	return result;
+}
+
