@@ -97,6 +97,13 @@ void paint(cairo_surface_t *surface, grille g,int v,int o){
 		{			
 			cairo_show_text(cr,"non oscillent");
 		}
+		else if(affichageOscillant(g,v)==2)
+		{			
+			char pas[1000];
+			sprintf(pas,"%d",delai_Osciller(g,v));
+			cairo_show_text(cr,"va etre oscillente dans ");
+			cairo_show_text(cr,pas);
+		}
 	
 		else if(affichageOscillant(g,v)==1)
 		{

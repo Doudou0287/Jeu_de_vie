@@ -156,3 +156,21 @@ int affichageOscillant(grille g, int v)
 	return test;
 }
 
+int delai_Osciller(grille g, int v)
+{
+	int m =0;
+	int result=0;
+	grille gc1, gc2;
+	alloue_grille(g.nbl,g.nbc,&gc1);
+	alloue_grille(g.nbl,g.nbc,&gc2);
+	copie_grille(&g,&gc1);
+	copie_grille(&g,&gc2);
+	while (m<100 && result==0)
+	{
+		result = testOscillant(gc1,v);
+		evolue(&gc1,&gc2,v);
+		m++;
+	}
+	return m-1;
+}
+

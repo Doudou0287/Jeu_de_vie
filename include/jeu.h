@@ -67,6 +67,7 @@ int testOscillant(grille g, int v);
 
 int affichageOscillant(grille g, int v);
 
+int delai_Osciller(grille g, int v);
 
 #endif
 
