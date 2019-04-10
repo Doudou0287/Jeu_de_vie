@@ -65,5 +65,8 @@ int periode(grille g, int v);
 
 int testOscillant(grille g, int v);
 
+int affichageOscillant(grille g, int v);
+
+
 #endif
 

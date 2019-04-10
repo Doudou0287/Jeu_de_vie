@@ -62,7 +62,7 @@ int graphique(grille *g, grille *gc);
  * \param g une grille
  * \return \c void
 */
-void paint(cairo_surface_t *surface, grille g,int v);
+void paint(cairo_surface_t *surface, grille g,int v,int o);
 
 
 

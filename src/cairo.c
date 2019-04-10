@@ -3,7 +3,7 @@
 int v=0;
 int temps=0;
 int (*compte_voisins_vivants) (int,int,grille)=compte_voisins_vivants_c;
-void paint(cairo_surface_t *surface, grille g,int v){
+void paint(cairo_surface_t *surface, grille g,int v,int o){
 
 	int CSIZE = 52 ;
 	char temp[100];
@@ -85,6 +85,27 @@ void paint(cairo_surface_t *surface, grille g,int v){
 		cairo_show_text(cr," i cyclique");
 	else 
 		cairo_show_text(cr," i non cyclique");
+	
+	//oscillant
+	cairo_select_font_face(cr,"serif",CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_BOLD);
+	cairo_set_font_size(cr,0.5*40);
+	cairo_set_source_rgb(cr,1.0,1.0,1.0);
+	cairo_move_to(cr,30,(g.nbl+4)*52);
+	if(o == 1)
+	{
+		if(affichageOscillant(g,v)==0)
+		{			
+			cairo_show_text(cr,"non oscillent");
+		}
+	
+		else if(affichageOscillant(g,v)==1)
+		{
+			char period[500];
+			sprintf(period,"%d",periode(g,v));			
+			cairo_show_text(cr,"oscillente , avec une periode de : ");
+			cairo_show_text(cr,period);
+		}
+	}
 
 
 	cairo_destroy(cr); // destroy cairo mask
@@ -100,7 +121,7 @@ int graphique(grille *g, grille *gc)
 	Window win;
 	XEvent e;
 	int scr;
-        int v=0;
+        int v=0,o=0;
 //2	// init the display
 	if(!(dpy=XOpenDisplay(NULL)))
 	{
@@ -127,13 +148,13 @@ int graphique(grille *g, grille *gc)
 	while(1) {
 		XNextEvent(dpy, &e);
 		if(e.type==Expose && e.xexpose.count<1) {
-			paint(cs,*g,v);
+			paint(cs,*g,v,o);
 		}
 		if(e.xbutton.button == 1)
 		{
 			evolue(g,gc,v);
 			temps++;
-			paint(cs,*g,v);
+			paint(cs,*g,v,o);
 		}
 		if (e.xkey.keycode==57) { 
 		// touche "n" charger une nouvelle grille
@@ -146,7 +167,7 @@ int graphique(grille *g, grille *gc)
 			init_grille_from_file(nom, g);
 			alloue_grille ((g->nbl),(g->nbc),gc);
 			
-			paint(cs,*g,v);
+			paint(cs,*g,v,o);
 	      	}	
 
 
@@ -154,7 +175,7 @@ int graphique(grille *g, grille *gc)
 		//la touche v vieillissement
 		{
 			v= 1 - v;	
-			paint(cs,*g,v);
+			paint(cs,*g,v,o);
 
 		}
 		if(e.xkey.keycode == 54)//c
@@ -162,15 +183,20 @@ int graphique(grille *g, grille *gc)
 			if(compte_voisins_vivants==compte_voisins_vivants_c)
 			{
 					compte_voisins_vivants=compte_voisins_v_n_c;
-					paint(cs,*g,v);
+					paint(cs,*g,v,o);
 			}				
 			else
 			{
 					compte_voisins_vivants=compte_voisins_vivants_c;
-					paint(cs,*g,v);
+					paint(cs,*g,v,o);
 			}		
 		}
 
+		if(e.xkey.keycode == 32)//o
+		{
+			o = 1 - o;
+			paint(cs,*g,v,o);
+		}
 
 		else if(e.xbutton.button==3) break;
 	}

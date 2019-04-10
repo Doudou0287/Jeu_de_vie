@@ -121,3 +121,38 @@ int periode(grille g, int v)
 	return m;
 }
 
+
+
+int affichageOscillant(grille g, int v)
+{
+	int m =0;
+	int result=0;
+	int test=0;
+	grille gc1,gc2;
+	alloue_grille(g.nbl,g.nbc,&gc1);
+	alloue_grille(g.nbl,g.nbc,&gc2);
+	copie_grille(&g,&gc1);
+	copie_grille(&g,&gc2);
+	while (m<100 && result==0)
+	{
+		result = testOscillant(gc1,v);
+		evolue(&gc1,&gc2,v);
+		m++;
+	}
+	if(result==0)
+	{
+		test=0;
+	}
+	else if(m != 1)
+	{
+		test=2;
+	}
+	else
+	{
+		test=1;
+	}
+	libere_grille(&gc1);
+	libere_grille(&gc2);
+	return test;
+}
+
