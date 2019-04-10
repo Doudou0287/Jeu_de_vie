@@ -102,4 +102,22 @@ int testOscillant(grille g, int v)
 	libere_grille(&gc2);
 	return result;
 }
+int periode(grille g, int v)
+{
+	int m = 1;	
+	grille gc1, gc2;
+	alloue_grille(g.nbl,g.nbc,&gc1);
+	alloue_grille(g.nbl,g.nbc,&gc2);
+	copie_grille(&g,&gc1);
+	copie_grille(&g,&gc2);
+	evolue(&gc1,&gc2,v);
+	while(testEqalite(g,gc1)==0 && m<100)
+	{
+		evolue(&gc1,&gc2,v);
+		m++;
+	}
+	libere_grille(&gc1);
+	libere_grille(&gc2);
+	return m;
+}
 

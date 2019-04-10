@@ -60,6 +60,8 @@ voisinage en cours
 */
 int (*compte_voisins_vivants) (int,int,grille);
 
+int periode(grille g, int v);
+
 
 int testOscillant(grille g, int v);
 
