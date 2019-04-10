@@ -27,8 +27,8 @@ LDFLAGS += -lcairo -lm -lX11
 #	@echo Clean!
 
 
-	ifeq (TEXTE,$(MODE))
-main: main.o grille.o jeu.o io.o
+ifeq (TEXTE,$(MODE))
+main: main.o libjeu.a io.o
 	$(CC) $(CFLAGS) -o $@ $(OPATH)main.o $(OPATH)jeu.o $(OPATH)grille.o $(OPATH)io.o $(LDFLAGS)
 	mkdir -p bin
 	mv main bin/
@@ -44,11 +44,16 @@ jeu.o: jeu.c jeu.h
 
 %.o:
 	mkdir -p $(OPATH)
-	@$(CC) $(CFLAGS) -c $< $(IFLAGS) 
+	@$(CC) $(CFLAGS) -c $< $(IFLAGS) $(CPPFLAGS)
 	mv $@ $(OPATH)
 
+libjeu.a : grille.o jeu.o
+	ar -crv libjeu.a $(OPATH)grille.o $(OPATH)jeu.o
+	ranlib libjeu.a
+	mv libjeu.a lib/
+
 else
-main2 : main2.o grille.o jeu.o cairo.o
+main2 : main2.o libjeu.a cairo.o
 	$(CC) $(CFLAGS) -o $@ $(OPATH)main2.o $(OPATH)grille.o $(OPATH)jeu.o $(OPATH)cairo.o $(LDFLAGS)
 	mkdir -p bin
 	mv main2 bin/
@@ -62,6 +67,13 @@ jeu.o: jeu.c jeu.h
 	mkdir -p $(OPATH)
 	$(CC) $(CFLAGS) -c $<  $(CPPFLAGS)
 	mv $@ $(OPATH)
+
+libjeu.a : grille.o jeu.o
+	ar -crv libjeu.a $(OPATH)grille.o $(OPATH)jeu.o
+	mkdir -p lib
+	ranlib libjeu.a
+	mv libjeu.a lib/
+
 endif
 
 dist: 
