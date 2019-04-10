@@ -53,10 +53,10 @@ libjeu.a : grille.o jeu.o
 	mv libjeu.a lib/
 
 else
-main2 : main2.o libjeu.a cairo.o
+main : main2.o libjeu.a cairo.o
 	$(CC) $(CFLAGS) -o $@ $(OPATH)main2.o $(OPATH)grille.o $(OPATH)jeu.o $(OPATH)cairo.o $(LDFLAGS)
 	mkdir -p bin
-	mv main2 bin/
+	mv main bin/
 	
 main2.o: main2.c grille.h io.h jeu.h 
 grille.o: grille.c grille.h
