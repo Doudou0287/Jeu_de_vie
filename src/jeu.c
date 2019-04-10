@@ -82,8 +82,8 @@ int testOscillant(grille g, int v)
 	grille gc1, gc2;
 	alloue_grille(g.nbl,g.nbc,&gc1);
 	alloue_grille(g.nbl,g.nbc,&gc2);
-	copie_grille(g,gc1);
-	copie_grille(g,gc2);
+	copie_grille(&g,&gc1);
+	copie_grille(&g,&gc2);
 	evolue(&gc1,&gc2,v);
 	while(testEqalite(g,gc1)==0 && m<100)
 	{
