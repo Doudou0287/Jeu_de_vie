@@ -16,24 +16,31 @@ static void affiche_trait(int c) {
   return;
 }
 
-static void affiche_ligne(int ligne, const grille *g) {
-	int i; 
- for ( i = 0; i < g->nbc; ++i) {
-    if (est_vivante(ligne, i, *g))
-      printf("| 0 ");
-    else
-      printf("|   ");
-  }
-  printf("|\n");
-  return;
+
+
+
+void affiche_ligne (int c, int* ligne){
+	int i;
+	for (i=0; i<c; ++i) 
+		if (ligne[i] == 0 ) 
+			printf ("|   ");
+		else if(ligne[i]==-1)
+			printf("| X ");
+		 else 	
+			printf ("| %d ",ligne[i]-1);
+
+	printf("|\n");
+	return;
 }
+
+
 
 void affiche_grille(const grille *g) {
 	int i; 
  printf("\n");
   affiche_trait(g->nbc);
   for ( i = 0; i < g->nbl; ++i) {
-    affiche_ligne(i, g);
+   affiche_ligne(g->nbc, g->cellules[i]);
     affiche_trait(g->nbc);
   }
   printf("\n");
