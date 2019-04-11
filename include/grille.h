@@ -81,8 +81,11 @@ static inline void set_morte(int i, int j, grille g) {
  * \return \c void
 */ 
 
+
 static inline bool est_vivante(int i, int j, grille g) {
-  return g.cellules[i][j] == 1;
+  if  (g.cellules[i][j] == 0) return 0;
+  else if (g.cellules[i][j]>=1 && g.cellules[i][j]<=8) return 1;
+else return 0;
 }
 
 /**
